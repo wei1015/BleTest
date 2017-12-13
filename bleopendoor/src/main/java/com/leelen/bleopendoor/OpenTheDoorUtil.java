@@ -125,6 +125,9 @@ public class OpenTheDoorUtil {
      */
     private void indicate(BleDevice device) {
         actionChanged(Status.notify);
+        if (notifyImpl==null){
+            return;
+        }
         BleManager.getInstance().notify(device, chatServiceUuid, chatBleGattCharacteristicUuid, notifyImpl);
     }
 
@@ -132,6 +135,9 @@ public class OpenTheDoorUtil {
      * 向设备写入数据
      */
     private void write() {
+        if (writeImpl==null){
+            return;
+        }
         if (connectDevice != null) {
             actionChanged(Status.write);
             BleManager.getInstance().write(connectDevice, chatServiceUuid, chatBleGattCharacteristicUuid, data, writeImpl);
